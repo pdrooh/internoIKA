@@ -4,7 +4,7 @@ Este projeto é uma aplicação full-stack para gerenciamento de um catálogo de
 
 ## Estrutura do Projeto
 
-- `frontend/`: Contém o código do cliente React
+- `front/`: Contém o código do cliente React
 - `backend/`: Contém o código do servidor Node.js
 
 ## Pré-requisitos
@@ -17,8 +17,8 @@ Este projeto é uma aplicação full-stack para gerenciamento de um catálogo de
 1. Clone o repositório:
 
    ```
-   git clone https://github.com/pdrooh/produtos-API-InternoIKA.git
-   cd projeto-fullstack
+   git clone https://github.com/pdrooh/internoIKA.git
+   cd internoIKA
    ```
 
 2. Instale as dependências do backend:
@@ -30,7 +30,7 @@ Este projeto é uma aplicação full-stack para gerenciamento de um catálogo de
 
 3. Instale as dependências do frontend:
    ```
-   cd ../frontend
+   cd ../front
    npm install
    ```
 
@@ -46,7 +46,7 @@ Este projeto é uma aplicação full-stack para gerenciamento de um catálogo de
 2. Em outro terminal, inicie o cliente frontend:
 
    ```
-   cd frontend
+   cd front
    npm start
    ```
 
@@ -60,10 +60,4 @@ Este projeto é uma aplicação full-stack para gerenciamento de um catálogo de
 - Exclusão de produtos
 - Filtragem e ordenação de produtos
 
-## Contribuindo
 
-Por favor, leia [CONTRIBUTING.md](CONTRIBUTING.md) para detalhes sobre nosso código de conduta e o processo para enviar pull requests.
-
-## Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE.md](LICENSE.md) para detalhes.
