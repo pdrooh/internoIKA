@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import * as XLSX from 'xlsx';
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
 import { PlusIcon, PencilIcon, TrashIcon, MoonIcon, SunIcon, ChartBarIcon, Squares2X2Icon, ListBulletIcon, ArrowUpIcon, ArrowDownIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, Legend } from 'recharts';
@@ -128,6 +129,18 @@ function App() {
       });
   }, [produtos, searchTerm, sortBy, sortOrder]);
 
+  // Função para baixar relatorio em XLS
+  const exportToXLS = () => {
+    const worksheet = XLSX.utils.json_to_sheet(produtos.map(p => ({
+      Nome: p.nome,
+      Quantidade: p.quantidade,
+      Preço: p.preco
+    })));
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Produtos");
+    XLSX.writeFile(workbook, "relatorio_produtos.xlsx");
+  };
+
   // Cálculos para estatísticas
   const totalValue = produtos.reduce((sum, product) => sum + product.preco * product.quantidade, 0);
   const averagePrice = produtos.length > 0 ? totalValue / produtos.length : 0;
@@ -218,6 +231,17 @@ function App() {
               exit={{ opacity: 0, y: -20 }}
             >
               <h2 className="text-2xl font-semibold mb-4">Estatísticas</h2>
+              <button 
+                onClick={exportToXLS}
+                className={`mb-4 px-4 py-2 rounded ${
+                  darkMode 
+                    ? 'bg-blue-600 hover:bg-blue-700' 
+                    : 'bg-blue-500 hover:bg-blue-600'
+                } text-white transition-colors duration-300`}
+              >
+                Exportar Relatório XLS
+              </button>
+              
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <StatCard title="Total de Produtos" value={produtos.length} darkMode={darkMode} />
                 <StatCard title="Valor Total do Estoque" value={`R$ ${totalValue.toFixed(2)}`} darkMode={darkMode} />
@@ -309,7 +333,7 @@ function App() {
           </motion.button>
         </div>
 
-               {/* Modal para adicionar/editar produto */}
+               {/* Adicionar/editar produto */}
                <AnimatePresence>
           {isModalOpen && (
             <motion.div
@@ -427,7 +451,7 @@ function App() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Modal de confirmação de exclusão */}
+        {/* Confirmação de exclusão */}
         <AnimatePresence>
           {confirmDelete && (
             <motion.div
